@@ -7,4 +7,3 @@ import com.capgemini.fms.entity.Flight;
 public interface FlightDao extends JpaRepository<Flight , Integer>{
 
 }
-

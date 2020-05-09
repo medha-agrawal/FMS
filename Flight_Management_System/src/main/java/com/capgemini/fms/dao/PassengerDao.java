@@ -8,4 +8,3 @@ import com.capgemini.fms.entity.Passenger;
 public interface PassengerDao extends JpaRepository<Passenger, Long> {
 
 }
-

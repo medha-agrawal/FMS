@@ -6,5 +6,3 @@ import com.capgemini.fms.entity.Booking;
 public interface BookingDao extends JpaRepository<Booking , Long>{
 
 }
-
-

@@ -45,7 +45,7 @@ private int noOfPassengers;
    private List<Passenger> passengerList;
 
 @ManyToOne
-   @JoinColumn(name="flightNumber", nullable=false)
+   @JoinColumn(name="flight_number", nullable=false)
    private Flight flight;
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
    private LocalDateTime bookingDate;

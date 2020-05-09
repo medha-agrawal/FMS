@@ -9,4 +9,3 @@ import com.capgemini.fms.entity.Airport;
 public interface AirportDao extends JpaRepository<Airport, String> {
 
 }
-

@@ -20,11 +20,11 @@ public class ScheduledFlight {
 private int availableSeats;
 
 @ManyToOne
-    @JoinColumn(name="flight", nullable=false)
+    @JoinColumn(name="flight_number", nullable=false)
     private Flight flight;
 
 @ManyToOne
-@JoinColumn(name="schedule", nullable=false)
+@JoinColumn(name="schedule_id", nullable=false)
 private Schedule schedule;
 
 public Flight getFlight() {

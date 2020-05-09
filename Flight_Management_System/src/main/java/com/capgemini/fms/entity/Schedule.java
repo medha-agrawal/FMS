@@ -1,13 +1,18 @@
 package com.capgemini.fms.entity;
-import javax.persistence.Column;
+import java.time.LocalDateTime;
+
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name ="schedule")
@@ -15,65 +20,71 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert(true)
 
 public class Schedule {
+	@Id
+	private int schedule_id;
+	@ManyToOne
+    @JoinColumn(name="airport_code",nullable=false)
+    private Airport sourceAirport;
+	@ManyToOne
+    @JoinColumn(name="airport_name",nullable=false)
+    private Airport destinationAirport;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	   private LocalDateTime arrivalTime;
+	 @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	   private LocalDateTime departureTime;
+	public int getSchedule_id() {
+		return schedule_id;
+	}
+	public void setSchedule_id(int schedule_id) {
+		this.schedule_id = schedule_id;
+	}
+	public Airport getSourceAirport() {
+		return sourceAirport;
+	}
+	public void setSourceAirport(Airport sourceAirport) {
+		this.sourceAirport = sourceAirport;
+	}
+	public Airport getDestinationAirport() {
+		return destinationAirport;
+	}
+	public void setDestinationAirport(Airport destinationAirport) {
+		this.destinationAirport = destinationAirport;
+	}
+	public LocalDateTime getArrivalTime() {
+		return arrivalTime;
+	}
+	public void setArrivalTime(LocalDateTime arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+	public LocalDateTime getDepartureTime() {
+		return departureTime;
+	}
+	public void setDepartureTime(LocalDateTime departureTime) {
+		this.departureTime = departureTime;
+	}
+	public Schedule(int schedule_id, Airport sourceAirport, Airport destinationAirport, LocalDateTime arrivalTime,
+			LocalDateTime departureTime) {
+		super();
+		this.schedule_id = schedule_id;
+		this.sourceAirport = sourceAirport;
+		this.destinationAirport = destinationAirport;
+		this.arrivalTime = arrivalTime;
+		this.departureTime = departureTime;
+	}
+	public Schedule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Schedule [schedule_id=" + schedule_id + ", sourceAirport=" + sourceAirport + ", destinationAirport="
+				+ destinationAirport + ", arrivalTime=" + arrivalTime + ", departureTime=" + departureTime + "]";
+	}
 
-@NotEmpty(message="Enter source Airport")
-@Id
-@Size(min=3, max=25, message="source name is either short or exceeding the ")
-@Column(name="sourceAirport")
-private String sourceAirport;
-
-@NotEmpty(message="Enter destination Airport")
-@Size(min=3, max=25, message="source name is either short or exceeding the ")
-@Column(name="destinationAirport")
-private String destinationAirport;
-
-@NotEmpty(message="Enter the Arrival Time")
-@Column(name="arrival_Time")
-private String arrival_Time;
-
-@NotEmpty(message="Enter the Departure Time")
-@Column(name="departure_Time")
-private String departure_Time;
-
-public String getSourceAirport() {
-return sourceAirport;
-}
-public void setSourceAirport(String sourceAirport) {
-this.sourceAirport = sourceAirport;
-}
-public String getDestinationAirport() {
-return destinationAirport;
-}
-public void setDestinationAirport(String destinationAirport) {
-this.destinationAirport = destinationAirport;
-}
-public String getArrival_Time() {
-return arrival_Time;
-}
-public void setArrival_Time(String arrival_Time) {
-this.arrival_Time = arrival_Time;
-}
-public String getDeparture_Time() {
-return departure_Time;
-}
-public void setDeparture_Time(String departure_Time) {
-this.departure_Time = departure_Time;
-}
-
-public Schedule (String sourceAirport, String destinationAirport, String arrival_Time, String departure_Time)
-{
-super();
-this.sourceAirport = sourceAirport;
-this.destinationAirport = destinationAirport;
-this.arrival_Time = arrival_Time;
-this.departure_Time = departure_Time;
-}
-public Schedule() {
-super();
-}
-@Override
-public String toString() {
-return "Schedule[ sourceAirport= " +sourceAirport+ ", destinationAirport= " +destinationAirport+ ", arrival_Time= " +arrival_Time+ ", departure_Time= " +departure_Time+ "]";
-
-}
+	
+	
+	
+	
+	
+	
 }

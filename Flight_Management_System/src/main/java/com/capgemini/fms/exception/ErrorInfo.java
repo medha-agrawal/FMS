@@ -1,14 +1,14 @@
 package com.capgemini.fms.exception;
 
-public class Error {
+public class ErrorInfo {
 	private String messgae;
 
-	public Error() {
+	public ErrorInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Error(String messgae) {
+	public ErrorInfo(String messgae) {
 		super();
 		this.messgae = messgae;
 	}

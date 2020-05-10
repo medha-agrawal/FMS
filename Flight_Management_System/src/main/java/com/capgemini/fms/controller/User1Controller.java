@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,5 +76,27 @@ public class User1Controller {
 		}
 	}
 	
+	@CrossOrigin
+	@PutMapping("/updateUser1/{id}")
+	public ResponseEntity updateflight(@Valid @RequestBody User1 user1,@RequestParam Integer user_id,BindingResult br ) throws User1Exception
+	{
+		String err = "";
+		if (br.hasErrors()) {
+			List<FieldError> errors = br.getFieldErrors();
+			for (FieldError error : errors)
+				err += error.getDefaultMessage() + "<br/>";
+			throw new User1Exception(err);
+		}
+		try {
+			user1service.updateUser1(user1,user_id);
+			return new ResponseEntity<String>("user id updated successfully", HttpStatus.OK);
 
-}
+		} catch (DataIntegrityViolationException ex) {
+			throw new User1Exception("User id already exists");
+		}
+	}
+		
+	}
+	
+
+

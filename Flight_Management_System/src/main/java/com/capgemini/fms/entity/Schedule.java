@@ -1,18 +1,24 @@
 package com.capgemini.fms.entity;
-import java.time.LocalDateTime;
 
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
 
 @Entity
 @Table(name ="schedule")
@@ -21,17 +27,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Schedule {
 	@Id
+	@Column(name="schedule_id")
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="schedule_id")
+	//@SequenceGenerator(sequenceName="schedule_id", initialValue=1,allocationSize=1, name="schedule_id")
 	private int schedule_id;
+	
 	@ManyToOne
     @JoinColumn(name="airport_code",nullable=false)
     private Airport sourceAirport;
+	
 	@ManyToOne
     @JoinColumn(name="airport_name",nullable=false)
     private Airport destinationAirport;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	   private LocalDateTime arrivalTime;
-	 @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	   private LocalDateTime departureTime;
+	
+	@JsonDeserialize(using = DateDeserializer .class)
+	 private Date arrivalDate;
+	
+	@JsonDeserialize(using = DateDeserializer .class)
+	 private Date departureDate;
+	
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//	  private Date arrivalTime = new Date();
+//	
+//	 @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//	   private Date departureTime = new Date();
+ 
 	public int getSchedule_id() {
 		return schedule_id;
 	}
@@ -50,26 +70,28 @@ public class Schedule {
 	public void setDestinationAirport(Airport destinationAirport) {
 		this.destinationAirport = destinationAirport;
 	}
-	public LocalDateTime getArrivalTime() {
-		return arrivalTime;
+	
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
-	public void setArrivalTime(LocalDateTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
-	public LocalDateTime getDepartureTime() {
-		return departureTime;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
-	public void setDepartureTime(LocalDateTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
-	public Schedule(int schedule_id, Airport sourceAirport, Airport destinationAirport, LocalDateTime arrivalTime,
-			LocalDateTime departureTime) {
+	
+	public Schedule(int schedule_id, Airport sourceAirport, Airport destinationAirport, Date arrivalTime,
+			Date departureTime) {
 		super();
 		this.schedule_id = schedule_id;
 		this.sourceAirport = sourceAirport;
 		this.destinationAirport = destinationAirport;
-		this.arrivalTime = arrivalTime;
-		this.departureTime = departureTime;
+		this.arrivalDate = arrivalTime;
+		this.departureDate = departureTime;
 	}
 	public Schedule() {
 		super();
@@ -78,13 +100,6 @@ public class Schedule {
 	@Override
 	public String toString() {
 		return "Schedule [schedule_id=" + schedule_id + ", sourceAirport=" + sourceAirport + ", destinationAirport="
-				+ destinationAirport + ", arrivalTime=" + arrivalTime + ", departureTime=" + departureTime + "]";
+				+ destinationAirport + ", arrivalTime=" + arrivalDate + ", departureTime=" + departureDate + "]";
 	}
-
-	
-	
-	
-	
-	
-	
 }

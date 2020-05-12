@@ -27,21 +27,16 @@ public class Passenger {
 //@NotNull(message="prn number is mandatory")
 @Id
 @Column(name="prnNumber")
-@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prnNumber")
+//@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prnNumber")
 private long prnNumber;
 
-@NotEmpty(message="Name can't be Empty")
-@Size(min=3, max=20,message="Name length can be 3 and 20 characters")
-@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)",message="only alphabets and blanl spaces are allowed")
 @Column(name="passengerName")
 private String passengerName;
 
-@NotNull(message="Age is mandatory")
+
 @Column(name="age")
 private int passengerAge;
 
-@NotNull(message="UIN is mandatory")
-@Size(min=5,max=25,message="length can be 5 and 25 numbers")
 @Column(name="passengerUIN")
 private long passengerUIN;
 

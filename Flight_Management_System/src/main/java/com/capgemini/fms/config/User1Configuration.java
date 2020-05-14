@@ -1,4 +1,4 @@
- package com.capgemini.fms.config;
+package com.capgemini.fms.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
